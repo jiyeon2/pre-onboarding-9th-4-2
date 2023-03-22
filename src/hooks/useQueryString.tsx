@@ -1,14 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { OrderData } from "../types/OrderData";
-
-export type OrderDataKey = keyof OrderData;
-export type SortOrder = "desc" | "asc";
-
-export interface OrderListQueryParams {
-  page?: number;
-  sortBy?: OrderDataKey;
-  sortOrder?: SortOrder;
-}
+import { OrderListQueryParams } from "../types/QueryParams";
 
 type QueryParamKey = keyof OrderListQueryParams;
 
@@ -17,13 +8,19 @@ function useQueryString() {
 
   // TODO as 없이 OrderListQueryParams[key]에 지정된 타입으로 바꾸는 방법 찾기
   // OrderListQueryParams 키 늘어나는 만큼 일일이 입력해야함..
-  const page = searchParams.get("page")
-    ? Number(searchParams.get("page"))
-    : undefined;
-  const sortBy = (searchParams.get("sortBy") ||
-    undefined) as OrderListQueryParams["sortBy"];
-  const sortOrder = (searchParams.get("sortOrder") ||
-    undefined) as OrderListQueryParams["sortOrder"];
+  const params = {
+    page: searchParams.get("page")
+      ? Number(searchParams.get("page"))
+      : undefined,
+    sortBy: (searchParams.get("sortBy") ||
+      undefined) as OrderListQueryParams["sortBy"],
+    sortOrder: (searchParams.get("sortOrder") ||
+      undefined) as OrderListQueryParams["sortOrder"],
+    customerName: (searchParams.get("customerName") ||
+      undefined) as OrderListQueryParams["customerName"],
+    orderStatus: (searchParams.get("orderStatus") ||
+      undefined) as OrderListQueryParams["orderStatus"],
+  };
 
   function setQueryParams(params: OrderListQueryParams) {
     Object.entries(params).forEach(([key, value]) => {
@@ -40,9 +37,7 @@ function useQueryString() {
   }
 
   return {
-    page,
-    sortBy,
-    sortOrder,
+    params,
     setQueryParams,
     deleteQueryParams,
   };
