@@ -12,6 +12,8 @@ export interface GetOrderListDataRes {
 
 export const TODAY = "2023-03-08";
 
+const url = import.meta.env.VITE_DATA_URL;
+
 export const getOrderListData = async ({
   date = TODAY,
   itemAmountPerPage = 50,
@@ -21,7 +23,7 @@ export const getOrderListData = async ({
   customerName,
   orderStatus,
 }: OrderListQueryParams): Promise<GetOrderListDataRes> => {
-  const res = await fetch("/mock_data.json");
+  const res = await fetch(url);
   if (!res.ok) throw new Error("데이터를 불러오지 못했습니다");
 
   let data: OrderData[] = await res.json();
