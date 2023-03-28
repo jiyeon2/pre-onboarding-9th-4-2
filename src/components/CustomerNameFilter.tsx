@@ -17,7 +17,7 @@ export function CustomerNameFilter() {
     const customerName = inputRef.current.value.trim().toLocaleLowerCase();
     if (!customerName) return;
 
-    setQueryParams({ customerName });
+    setQueryParams({ customerName, page: 1 });
     inputRef.current.value = "";
   };
 

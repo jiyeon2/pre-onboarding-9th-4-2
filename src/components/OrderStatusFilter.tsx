@@ -9,7 +9,10 @@ export function OrderStatusFilter() {
     if (newValue === "all") {
       deleteQueryParams(["orderStatus"]);
     } else {
-      setQueryParams({ orderStatus: newValue as FilterParams["orderStatus"] });
+      setQueryParams({
+        orderStatus: newValue as FilterParams["orderStatus"],
+        page: 1,
+      });
     }
   };
   return (
